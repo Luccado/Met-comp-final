@@ -1,0 +1,20 @@
+# This application will perform newton's method on Newton's Method given function.
+
+def newtonsmethod(func, funcderiv, x, n):
+
+    def f(x):
+        f = eval(func)
+        return f
+
+    def df(x):
+        df = eval(funcderiv)
+        return df
+
+    for intercept in range(1, n):
+        i = x - (f(x)/df(x))
+        x = i
+        print(f"The root was found to be at {x} after {n} interations")
+
+newtonsmethod("x**3 - 9*x + 3", "3*x**3 - 9", 2, 10)
+newtonsmethod("x**2 - 2", "2*x", -10, 10)
+
