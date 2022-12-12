@@ -1,6 +1,8 @@
 # Met-comp-final
-Métodos calculo numérico
 
+Trabalho final da matéria Métodos Computacionais 2021/1 
+
+Métodos calculo numérico
 
 Método da Bissecção
 
