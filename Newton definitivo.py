@@ -1,39 +1,41 @@
-import pandas as pd #fazer a tabela ficar bonita
-import numpy as np
-import matplotlib.pyplot as plt
+def newtonMetodo():
+    quant_pontos = int(input("Quantidade de elementos na tabela: "))
+    elem, felem = [], [] #guarda x e f(x)
+    tab = [] #guarda a tabela da diferenças divididas
+    for i in range(quant_pontos):
+        pontox = float(input("x%d= " %i)) #x
+        fpontox = float(input("f(x%d)= " %i)) #f(x)
+        elem.append(pontox) #joga o valor na lista
+        felem.append(fpontox) #joga o valor de f(x) na lista
+    tab.append(felem) #oredem 0
+
+    x = float(input("Ponto x a ser estimado: "))
+
+    step = 1
+
+    for n in range(quant_pontos - 1): #quantidade -1
+        ordem = []
+        for m in range(len(tab[n]) - 1):
+            diferenDiv = (tab[n][m + 1] - tab[n][m] / (elem)[m + step] - elem[m]) #método. dado baixo menos o de cima dividido pelo x de baixo menos o de cima
+            ordem.append(diferenDiv) #joga valor na lista ordem
+        tab.append(ordem) #joga ordem dentro da tabela
+        step += 1
 
 
-def Newton(x, y, xi):
-    n = len(x) #num de dados
-    fdd = [[None for x in range(n)] for x in range(n)] #cria a matriz linhas e colunas
-    yint = [None for x in range(n)]
+    for l in range(len(tab)):
+        print("Ordem %d " %l, tab[l])
 
 
-    for i in range(n):
-        fdd[i][0] = y[i] #determina onde começa linha 0 coluna 0
-
-    for j in range(1, n): #1 até n priorizando a ordem 1
-        for i in range(n - j): # 0 até n-j
-            fdd[i][j] = (fdd[i + 1][j - 1] - fdd[i][j - 1]) / (x[i + j] - x[i]) #diferença divididas
-
-    fdd_table = pd.DataFrame(fdd)
-    print("Tabela: \n",fdd_table.to_string())
-    xterm = 1
-    yint = fdd[0][0]
+    polin = 0
+    mult = 0
 
 
-    for order in range(1, n):
-        xterm = xterm * (xi - x[order - 1])
-        yint = yint + fdd[0][order] * xterm
+    for i in range(len(tab)): #acessando a tabela das diferenças divididas
+        elem1 = tab[i][0]
+        for j in range(mult): #controla a quantidade de multiplicações
+            elem1 *= (x - elem[j])
+        mult += 1
+        polin += elem1
+    print("A aproximação encontrada para f(%f)= %f" %(x,polin))
 
-    return yint
-
-
-
-x = [-1, 0, 2] #Dados da tabela
-y = [4, 1, -1] #dados do f(x) da tabela
-xp = 0.05 #valor desejádo para calcular através de interpolação
-yp = Newton(x, y, xp) #interpolação de newton
-
-print('O valor da interpolação é: g(%.3f) = %.3f' % (xp, yp)) #valor interpolação
-
+newtonMetodo()
